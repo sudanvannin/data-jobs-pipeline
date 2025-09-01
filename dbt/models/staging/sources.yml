@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+  - name: raw_data
+    description: "Dados brutos coletados pelos scrapers"
+    tables:
+      - name: raw_jobs
+        description: "Tabela principal com vagas coletadas"
+        columns:
+          - name: id
+            description: "ID único da vaga"
+            tests:
+              - unique
+              - not_null
+          - name: title
+            description: "Título da vaga"
+            tests:
+              - not_null
+          - name: company
+            description: "Nome da empresa"
+          - name: location
+            description: "Localização da vaga"
+          - name: description
+            description: "Descrição completa da vaga"
+          - name: salary
+            description: "Informação salarial quando disponível"
+          - name: date_posted
+            description: "Data de publicação da vaga"
+          - name: source
+            description: "Fonte dos dados (indeed, gupy, linkedin)"
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['indeed', 'gupy', 'linkedin']
+          - name: scraped_at
+            description: "Timestamp da coleta"
+            tests:
+              - not_null
+          - name: url
+            description: "URL original da vaga"
+          - name: created_at
+            description: "Timestamp de criação do registro"
+          - name: updated_at
+            description: "Timestamp da última atualização"

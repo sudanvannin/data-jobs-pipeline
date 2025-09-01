@@ -1,0 +1,122 @@
+name: 'data_jobs_pipeline'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'data_jobs_pipeline'
+
+# These configurations specify where dbt should look for different types of files.
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+# Configuring models
+models:
+  data_jobs_pipeline:
+    # Configurações para modelos staging
+    staging:
+      +materialized: view
+      +schema: staging
+    
+    # Configurações para modelos intermediate
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+    
+    # Configurações para modelos marts
+    marts:
+      +materialized: table
+      +schema: marts
+
+# Configurações de seeds
+seeds:
+  data_jobs_pipeline:
+    +schema: seeds
+
+# Configurações de snapshots
+snapshots:
+  data_jobs_pipeline:
+    +target_schema: snapshots
+
+# Configurações de testes
+tests:
+  +store_failures: true
+
+# Variáveis do projeto
+vars:
+  # Configurações de data
+  start_date: '2024-01-01'
+  
+  # Skills para extração
+  technical_skills:
+    - 'python'
+    - 'sql' 
+    - 'spark'
+    - 'airflow'
+    - 'dbt'
+    - 'kafka'
+    - 'docker'
+    - 'kubernetes'
+    - 'aws'
+    - 'azure'
+    - 'gcp'
+    - 'snowflake'
+    - 'redshift'
+    - 'bigquery'
+    - 'pandas'
+    - 'numpy'
+    - 'scikit-learn'
+    - 'tensorflow'
+    - 'pytorch'
+    - 'hadoop'
+    - 'hive'
+    - 'presto'
+    - 'elasticsearch'
+    - 'mongodb'
+    - 'postgresql'
+    - 'mysql'
+    - 'redis'
+    - 'git'
+    - 'linux'
+    - 'bash'
+    - 'scala'
+    - 'java'
+    - 'r'
+    - 'tableau'
+    - 'power bi'
+    - 'looker'
+    - 'metabase'
+    - 'superset'
+  
+  # Senioridades
+  seniority_levels:
+    - 'junior'
+    - 'pleno'
+    - 'senior'
+    - 'especialista'
+    - 'principal'
+    - 'lead'
+    - 'manager'
+    - 'director'
+    - 'estagiário'
+    - 'trainee'
+  
+  # Modalidades de trabalho
+  work_modes:
+    - 'remoto'
+    - 'presencial'
+    - 'híbrido'
+    - 'home office'
+    - 'on-site'
+  
+  # Configurações de limpeza
+  min_title_length: 5
+  max_title_length: 200
+  min_description_length: 50

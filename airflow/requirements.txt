@@ -1,0 +1,27 @@
+# Airflow requirements
+apache-airflow==2.7.3
+apache-airflow-providers-postgres==5.6.0
+
+# Database
+psycopg2-binary==2.9.7
+sqlalchemy==2.0.21
+
+# DBT
+dbt-core==1.6.7
+dbt-postgres==1.6.7
+
+# Web scraping
+requests==2.31.0
+beautifulsoup4==4.12.2
+selenium==4.15.2
+lxml==4.9.3
+fake-useragent==1.4.0
+cloudscraper==1.2.71
+
+# Data processing
+pandas==2.1.1
+numpy==1.24.4
+
+# Utilities
+python-dotenv==1.0.0
+pytz==2023.3

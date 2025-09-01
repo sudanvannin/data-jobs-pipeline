@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: stg_jobs
+    description: "Dados de vagas limpos e padronizados"
+    columns:
+      - name: id
+        description: "ID único da vaga"
+        tests:
+          - unique
+          - not_null
+      - name: title_clean
+        description: "Título limpo da vaga"
+        tests:
+          - not_null
+      - name: company_clean
+        description: "Nome da empresa padronizado"
+      - name: location_clean
+        description: "Localização padronizada"
+      - name: state
+        description: "Estado extraído da localização"
+      - name: work_mode
+        description: "Modalidade de trabalho (Remoto, Presencial, Híbrido)"
+      - name: seniority_level
+        description: "Nível de senioridade identificado"
+      - name: is_valid_job
+        description: "Flag indicando se a vaga passou nos filtros de qualidade"
+        tests:
+          - not_null
+      - name: job_hash
+        description: "Hash para identificar duplicatas"
+        tests:
+          - not_null
+
+  - name: int_jobs
+    description: "Dados enriquecidos com extração de skills e métricas"
+    columns:
+      - name: id
+        description: "ID único da vaga"
+        tests:
+          - unique
+          - not_null
+      - name: technical_skills_score
+        description: "Score de skills técnicas (0-100)"
+        tests:
+          - not_null
+      - name: total_skills_count
+        description: "Contagem total de skills identificadas"
+      - name: tech_stack_category
+        description: "Categoria do stack tecnológico principal"
+      - name: cloud_preference
+        description: "Preferência de cloud provider"
+      - name: is_premium_job
+        description: "Flag para vagas com alta demanda de skills"
+
+  - name: fct_job_trends
+    description: "Fatos agregados para análise de tendências"
+    columns:
+      - name: aggregation_level
+        description: "Nível de agregação (daily, weekly)"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['daily', 'weekly']
+      - name: period_start
+        description: "Data de início do período"
+        tests:
+          - not_null
+      - name: total_jobs
+        description: "Total de vagas no período"
+        tests:
+          - not_null
+      - name: avg_technical_score
+        description: "Score técnico médio das vagas"

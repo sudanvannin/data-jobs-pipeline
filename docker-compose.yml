@@ -206,7 +206,7 @@ services:
     profiles: ["dbt"]
     command: ["tail", "-f", "/dev/null"]  # Manter container rodando
 
-  # Metabase para dashboards
+  # Metabase para dashboards (opcional - use Streamlit como principal)
   metabase:
     image: metabase/metabase:v0.47.7
     environment:
@@ -227,7 +227,7 @@ services:
     restart: always
     profiles: ["metabase", "dashboard"]
 
-  # Superset como alternativa ao Metabase
+  # Superset como alternativa (opcional - use Streamlit como principal)
   superset:
     image: apache/superset:3.0.1
     environment:

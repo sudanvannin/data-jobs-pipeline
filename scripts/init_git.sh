@@ -39,7 +39,7 @@ if ! git diff --cached --quiet; then
 - Processamento de dados com DBT
 - Orquestração com Apache Airflow
 - Containerização com Docker Compose
-- Dashboards com Metabase/Superset
+- Dashboard interativo com Streamlit
 - Análise exploratória com Jupyter
 
 Funcionalidades:

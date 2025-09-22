@@ -16,7 +16,7 @@ Construir um pipeline de dados moderno que:
 ```
 ┌─────────────┐    ┌──────────────┐    ┌─────────────┐    ┌─────────────┐
 │   Scrapers  │───▶│  PostgreSQL  │───▶│     DBT     │───▶│ Dashboard   │
-│ (Python)    │    │   (Raw Data) │    │(Transform)  │    │ (Metabase)  │
+│ (Python)    │    │   (Raw Data) │    │(Transform)  │    │ (Streamlit) │
 └─────────────┘    └──────────────┘    └─────────────┘    └─────────────┘
        ▲                                       ▲
        │                                       │
@@ -140,8 +140,8 @@ python scripts/test_scrapers.py
 
 ### 5. Acessar Interfaces
 
+- **Streamlit Dashboard**: http://localhost:8501 (Dashboard principal com visualizações interativas)
 - **Airflow**: http://localhost:8080 (airflow/airflow)
-- **Metabase**: http://localhost:3000
 - **PostgreSQL**: localhost:5432 (airflow/airflow)
 - **PgAdmin**: http://localhost:5050 (admin@datajobs.com/admin)
 - **Jupyter**: http://localhost:8888 (token: data-jobs-pipeline)
@@ -166,9 +166,29 @@ docker-compose exec dbt dbt run
 docker-compose exec dbt dbt test
 ```
 
-## Dashboard,
+## Dashboard
 
-Configure o Metabase ou Superset para conectar ao PostgreSQL:
+O projeto inclui um **dashboard interativo desenvolvido em Streamlit** como interface principal para visualização dos dados.
+
+### Funcionalidades do Dashboard Streamlit
+- **Métricas em tempo real**: Total de vagas, empresas únicas, fontes ativas
+- **Filtros interativos**: Por fonte, período, localização
+- **Visualizações dinâmicas**:
+  - Distribuição de vagas por fonte
+  - Tendência diária de coleta
+  - Top empresas contratando
+  - Análise geográfica
+  - Skills mais demandadas
+  - Distribuição por senioridade
+  - Score técnico das vagas
+
+### Acesso ao Dashboard
+- **URL**: http://localhost:8501
+- **Atualização**: Dados atualizados automaticamente a cada 5 minutos
+- **Export**: Possibilidade de baixar dados como CSV
+
+### Dashboards Alternativos (Opcionais)
+Se preferir usar outras ferramentas de BI, configure o Metabase ou Superset para conectar ao PostgreSQL:
 - Host: localhost
 - Port: 5432
 - Database: airflow
@@ -181,6 +201,8 @@ Configure o Metabase ou Superset para conectar ao PostgreSQL:
 - **Apache Airflow 2.x**: Orquestração
 - **PostgreSQL**: Banco de dados
 - **DBT Core**: Transformação de dados
+- **Streamlit**: Dashboard interativo e visualizações
+- **Plotly**: Gráficos interativos
 - **Docker**: Containerização
 - **BeautifulSoup/Selenium**: Web scraping
 - **Pandas**: Manipulação de dados
@@ -207,13 +229,17 @@ Configure o Metabase ou Superset para conectar ao PostgreSQL:
 - **Intermediate**: Extração de skills e categorização
 - **Marts**: Agregações para análise (tendências, métricas)
 
-### Visualizações Sugeridas
-- Evolução diária de vagas
-- Top empresas contratando
-- Distribuição geográfica
-- Skills mais demandadas
-- Análise salarial
-- Tendências por fonte
+### Visualizações Disponíveis no Dashboard Streamlit
+- **Métricas principais**: Total de vagas, empresas únicas, fontes ativas, vagas com salário
+- **Evolução temporal**: Tendência diária de coleta de vagas por fonte
+- **Análise por fonte**: Distribuição de vagas por plataforma (Indeed, Gupy, LinkedIn)
+- **Top empresas**: Ranking das empresas com mais vagas abertas
+- **Distribuição geográfica**: Vagas por localização/estado
+- **Skills técnicas**: Análise das tecnologias mais demandadas (Python, SQL, Big Data, etc.)
+- **Níveis de senioridade**: Distribuição por júnior, pleno, sênior
+- **Score técnico**: Histograma da pontuação técnica das vagas
+- **Análise temporal**: Padrão de coleta por hora do dia
+- **Exportação de dados**: Download dos dados filtrados em CSV
 
 ## Contribuição
 

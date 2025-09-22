@@ -87,7 +87,7 @@ db-backup: ## Fazer backup do banco
 health-check: ## Verificar saúde dos serviços
 	@echo "🏥 Verificando saúde dos serviços..."
 	@curl -f http://localhost:8080/health || echo "❌ Airflow indisponível"
-	@curl -f http://localhost:3000/api/health || echo "❌ Metabase indisponível"
+	@curl -f http://localhost:8501 || echo "❌ Streamlit indisponível"
 	@$(DOCKER_COMPOSE) exec postgres pg_isready -U airflow || echo "❌ PostgreSQL indisponível"
 
 # Desenvolvimento
@@ -114,8 +114,8 @@ jupyter-stop: ## Parar Jupyter Notebook
 	$(DOCKER_COMPOSE) stop jupyter
 
 # Dashboard
-metabase-start: ## Iniciar apenas Metabase
-	$(DOCKER_COMPOSE) --profile metabase up -d metabase
+streamlit-start: ## Iniciar apenas Streamlit
+	$(DOCKER_COMPOSE) --profile streamlit up -d streamlit
 
 superset-start: ## Iniciar apenas Superset
 	$(DOCKER_COMPOSE) --profile superset up -d superset

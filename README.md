@@ -30,34 +30,25 @@ Construir um pipeline de dados moderno que:
 ```
 data-jobs-pipeline/
 ├── airflow/
-│   ├── dags/
-│   │   └── jobs_pipeline.py
-│   ├── docker-compose.yaml
+│   ├── dags/jobs_pipeline.py     # DAG diária (6h): scraping → dbt
 │   └── requirements.txt
-├── scraping/
-│   ├── __init__.py
-│   ├── base_scraper.py
-│   ├── indeed_scraper.py
-│   ├── gupy_scraper.py
-│   ├── linkedin_scraper.py
-│   └── database.py
+├── scraping/                     # Scrapers (Indeed, Gupy, LinkedIn) + acesso ao banco
 ├── dbt/
-│   ├── dbt_project.yml
-│   ├── profiles.yml
 │   ├── models/
-│   │   ├── staging/
-│   │   │   └── stg_jobs.sql
-│   │   ├── intermediate/
-│   │   │   └── int_jobs.sql
-│   │   └── marts/
-│   │       └── fct_job_trends.sql
+│   │   ├── staging/              # stg_jobs
+│   │   ├── intermediate/         # int_jobs (extração de skills)
+│   │   └── marts/                # fct_job_trends
 │   └── macros/
-├── sql/
-│   └── init_database.sql
-├── requirements.txt
-├── .env.example
-├── .gitignore
-└── README.md
+├── streamlit_app/                # Dashboard
+├── notebooks/                    # Análise exploratória
+├── scripts/                      # setup, testes e CLI dos scrapers
+├── sql/init_database.sql
+├── docker-compose.yml
+├── Dockerfile.airflow
+├── Dockerfile.streamlit
+├── Makefile
+├── env.example
+└── requirements.txt
 ```
 
 ## Como Executar
@@ -74,7 +65,7 @@ data-jobs-pipeline/
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/data-jobs-pipeline.git
+git clone https://github.com/sudanvannin/data-jobs-pipeline.git
 cd data-jobs-pipeline
 
 # Execute o script de configuração automática
@@ -140,6 +131,8 @@ python scripts/test_scrapers.py
 
 ### 5. Acessar Interfaces
 
+> As credenciais abaixo são padrões de desenvolvimento local. Troque-as no `.env` antes de expor qualquer serviço.
+
 - **Streamlit Dashboard**: http://localhost:8501 (Dashboard principal com visualizações interativas)
 - **Airflow**: http://localhost:8080 (airflow/airflow)
 - **PostgreSQL**: localhost:5432 (airflow/airflow)
@@ -184,7 +177,7 @@ O projeto inclui um **dashboard interativo desenvolvido em Streamlit** como inte
 
 ### Acesso ao Dashboard
 - **URL**: http://localhost:8501
-- **Atualização**: Dados atualizados automaticamente a cada 5 minutos
+- **Atualização**: Novos dados chegam pela DAG diária (6h). O dashboard mantém cache de 5 minutos
 - **Export**: Possibilidade de baixar dados como CSV
 
 ### Dashboards Alternativos (Opcionais)
